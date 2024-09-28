@@ -59,7 +59,7 @@ class Porn:
         Returns:
             dict: A dictionary containing the file path.
         """
-        file_path = wget.download(download_url, out=filename)
+        file_path = wget.download(download_url, out=filename+".mp4")
         return {"path": file_path}
 
     async def get_download_url(self, url: str) -> str:
