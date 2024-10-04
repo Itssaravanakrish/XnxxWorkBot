@@ -4,6 +4,8 @@
 import random
 import logging
 
+from moviepy.editor import VideoFileClip
+from PIL import Image
 from pyrogram import filters, Client, types
 from scrappy import Porn
 
@@ -24,6 +26,13 @@ app = Client(
 
 
 temp = {}
+
+
+
+def resize_image(path: str):
+   img = Image.open(path)
+   img.thumbnail((320, 240))  # Resize to 320x240
+   img.save(path)
 
 
 @app.on_callback_query()
@@ -48,7 +57,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         
         url = porn.base_url + result["link"]
         video = await porn.get_download_url(url)
-        await msg.edit("😍 **Successfully downloadable link scrapped now trying to upload file in telegram** 😋 🍆 ⚡ **Please wait processing....**")
+        await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 ⚡ **Please wait processing....**")
         
         print(video)
         if "error" in video:
@@ -56,14 +65,44 @@ async def _callback_query(bot, query: types.CallbackQuery):
         download_url = video["download_url"]
         
         filename = result["title"] + ".mp4"
+
+        
         try:
            video_data = await porn.download(download_url, filename)
         except Exception as e:
         	    return await msg.edit(f"😓 **Sorry the wget module got a error while downloading....** `{e}`")
+
+        clip = VideoFileClip(video_data["path"])
+        duration = int(clip.duration)
+        video_title = result['title']
+
+        image_group = []
+
+        await msg.edit("**💋 Taking Screenshotsn.... **")
+        for _ in range(1, 6):           
+            path = f"{video_title}_screenshot_{_}.jpg"
+            image_group.append(types.InputMediaPhoto(path))
+            clip.save_frame(path, t=random.randint(30, duration))
+            resize_image(path)
+                           
+        await msg.edit("👅 **Successfully Screenshot taken now trying to upload.....**")
+
+        try:
+            await msg.reply_media_group(media=image_group, quote=True)
+        except Exception as e:
+             await msg.reply_text("❌ ERROR When Uploading Screenshots: {e}".format(e))
+
         
-        caption = f"**Video: {result['title']} Successfully downloaded by @{bot.me.username}**"
-        await query.message.reply_video(video_data['path'], caption=caption)
-        await msg.edit("👄")
+        await msg.edit("🥒 **Uploading Video please A wait ....**")
+        caption = f"**Video: {video_title} Successfully downloaded by @{bot.me.username}**"
+      
+        await query.message.reply_video(
+             video=video_data['path'],
+             duration=duration, 
+             thumb=random.choice(image_group),
+             caption=caption
+        )
+        await msg.edit("**Join @NandhaBots Dude! XD**")
 
     	    	
     elif query_data.startswith("preview"):
