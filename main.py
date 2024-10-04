@@ -102,8 +102,8 @@ async def _callback_query(bot, query: types.CallbackQuery):
              thumb=open(random.choice(image_group).media, "rb"),
              caption=caption
         )
-        await msg.edit("**Join @NandhaBots Dude! XD**")
-
+        await msg.reply("😜 **Join @NandhaBots Dude! Honey** 😍 😍")
+        await msg.delete()
     	    	
     elif query_data.startswith("preview"):
         _, CQtoken, CQindex = query_data.split(":")
