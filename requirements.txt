@@ -1,4 +1,5 @@
 aiohttp
+moviepy
 wget
 bs4
 fake_useragent
