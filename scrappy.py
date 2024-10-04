@@ -74,10 +74,8 @@ class Porn:
                   with open(filename, "wb+") as file:
                        file.write(content)
                   return {"path": os.path.abspath(filename) }
-                  
-                      
-        file_path = wget.download(download_url, out=filename)
-        return {"path": file_path}
+        except Exception as e:
+              return {"error": "❌ ERROR: {e}".format(e)}
 
     async def get_download_url(self, url: str) -> str:
         """
