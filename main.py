@@ -18,9 +18,9 @@ logging.basicConfig(level=logging.INFO)
 porn = Porn()
 app = Client(
    name="xnxxwork",
-   api_id=568881,
-   api_hash="d8ea6440035bc05f0cfd477",
-   bot_token="7673:ycgBRzaZFwvHeaAd2ms3khf3YyK7f0ic"
+   api_id=28374181,
+   api_hash="00b7ca7f535e816590db39e76f85d0c7",
+   bot_token="7673638763:AAGuJ0XJ6oZ6E1b63Hjoqcvsl8ovYnDoVjk"
    
 )
 
