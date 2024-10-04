@@ -203,6 +203,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
 async def _search(bot, message: types.Message):
 	         msg_txt = message.text
 	         user = message.from_user
+  
            try:
               await app.get_chat_member("@NandhaBots", user.id)
            except Exception as e:
