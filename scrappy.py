@@ -66,7 +66,7 @@ class Porn:
             async with httpx.AsyncClient() as client:
                   response = await client.get(download_url)
                   if response.status_code != 200:
-                      return {"error": "can't download the video}
+                      return {"error": "can't download the video"}
                   content = response.read()
 
                   if filename is None:
