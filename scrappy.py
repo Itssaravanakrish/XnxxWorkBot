@@ -1,7 +1,9 @@
 
+import os
+import uuid
 import aiohttp
 import urllib
-import wget
+import httpx
 import string
 import random
 
@@ -59,6 +61,21 @@ class Porn:
         Returns:
             dict: A dictionary containing the file path.
         """
+
+        try:
+            async with httpx.AsyncClient() as client:
+                  response = await client.get(download_url)
+                  if response.status_code != 200:
+                      return {"error": "can't download the video}
+                  content = response.read()
+
+                  if filename is None:
+                       filename = str(uuid.uuid4()) + ".mp4"
+                  with open(filename, "wb+") as file:
+                       file.write(content)
+                  return {"path": os.path.abspath(filename) }
+                  
+                      
         file_path = wget.download(download_url, out=filename)
         return {"path": file_path}
 
