@@ -60,14 +60,13 @@ async def _callback_query(bot, query: types.CallbackQuery):
         video = await porn.get_download_url(url)
         await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 ⚡ **Please wait processing....**")
         
-        print(video)
+        logging.info('Trying to download video: {%s}' % video["download_url"])
         if "error" in video:
         	    return await msg.edit(f"❌ **Error: {video['error']}**")
         download_url = video["download_url"]
         
         filename = result["title"] + ".mp4"
 
-        
         try:
            video_data = await porn.download(download_url, filename)
         except Exception as e:
