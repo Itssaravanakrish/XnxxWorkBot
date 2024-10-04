@@ -93,7 +93,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
              await msg.reply_text("❌ ERROR When Uploading Screenshots: {e}".format(e))
 
         
-        await msg.edit("🥒 **Uploading Video please A wait ....**")
+        await msg.edit(f"👅 💋 **Uploading {video_title} Video please wait 🥒 🥴🥵🥴....**")
         caption = f"**Video: {video_title} Successfully downloaded by @{bot.me.username}**"
       
         await query.message.reply_video(
