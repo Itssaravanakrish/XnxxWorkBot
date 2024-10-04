@@ -1,6 +1,6 @@
 aiohttp
+httpx
 moviepy
-wget
 pillow
 bs4
 fake_useragent
