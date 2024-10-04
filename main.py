@@ -99,7 +99,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         await query.message.reply_video(
              video=video_data['path'],
              duration=duration, 
-             thumb=random.choice(image_group),
+             thumb=open(random.choice(image_group), "rb"),
              caption=caption
         )
         await msg.edit("**Join @NandhaBots Dude! XD**")
