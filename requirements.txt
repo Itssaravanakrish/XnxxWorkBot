@@ -1,6 +1,7 @@
 aiohttp
 moviepy
 wget
+pillow
 bs4
 fake_useragent
 https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
