@@ -52,10 +52,24 @@ def resize_image(path: str):
    img.save(path)
 
 
-@app.on_message(group=10)
+
+@app.on_message(filters.command("mydata"))
+async def mydata(_, message):
+     user = message.from_user
+     if user.in in temp:
+         data = temp[user.id]
+         path = f"{user.full_name}_data.json"
+         with open(path, "w+") as file:
+               file.write(data)
+         await message.reply_document(document=path, caption=f"**{user.full_name}'s search data**")
+         if os.path.exists(path):
+             os.remove(path)
+     else:
+         return await message.reply("I don't have any of your data yet.")
+
+@app.on_message(~filters.command(["search", "mydata"]), group=10)
 async def Reply(_, message):
-     if not bool(message.text) or "/search" not in message.text:
-          return await message.reply_text("/search cute girl")
+     return await message.reply_text("/search hot sexy girl")
 
 @app.on_callback_query()
 async def _callback_query(bot, query: types.CallbackQuery):
