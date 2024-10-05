@@ -66,7 +66,7 @@ class Porn:
             async with httpx.AsyncClient() as client:
                   response = await client.get(download_url)
                   if response.status_code != 200:
-                      return {"error": "can't download the video"}
+                      return {"error": f"cant download the video: {response.text}"}
                   content = response.read()
 
                   if filename is None:
@@ -74,8 +74,8 @@ class Porn:
                   with open(filename, "wb+") as file:
                        file.write(content)
                   return {"path": os.path.abspath(filename) }
-        except Exception as e:
-              return {"error": "❌ ERROR: {error}".format(error=str(e))}
+        except Exception as error:
+              return {"error": f"❌ ERROR: {error}"}
 
     async def get_download_url(self, url: str) -> str:
         """
@@ -91,16 +91,16 @@ class Porn:
             async with httpx.AsyncClient() as session:
                  response = await session.get(url, headers=self.get_header())
                  if response.status_code != 200:
-                    return {"error":  response.text}
+                    return {"error":  f"❌ ERROR: {str(response.text)}"}
                  soup = bs(response.text, "html.parser")
                  try:
                     source = soup.find_all("div", class_="video")[0].find("source").get("src")
-                 except Exception as e:
-                     return {"error": "❌ Can't fetch download url ERROR: {error}".format(error=str(e))}
+                 except Exception as error:
+                     return {"error": f"❌ Cant fetch download url ERROR: {error}"}
                  return {"download_url": source}
 
-        except Exception as e:
-               return {"error": "❌ Can't fetch download url ERROR: {error}".format(error=str(e))}           
+        except Exception as error:
+               return {"error": f"❌ Cant fetch download url ERROR: {error}"}           
                
     async def search(self, query: str) -> list:
         """
