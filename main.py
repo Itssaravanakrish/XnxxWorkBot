@@ -16,6 +16,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 porn = Porn()
+
 app = Client(
    name="xnxxwork",
    api_id=28374181,
@@ -29,6 +30,20 @@ app = Client(
 temp = {}
 
 
+CHANNEL_BUTTON = types.InlineKeyboardMarkup(
+  [[
+    types.InlineKeyboardButton("🥵 Join My Channel", url="https://t.me/NandhaBots"),
+  ]]
+)
+
+SHARE_URL = "tg://share?text=@XnxxxWorkBot%20is%20your%20ultimate%20gateway%20to%20the%20hottest%20adult%20content%21%20%F0%9F%94%A5%F0%9F%92%8B%20Whether%20you%27re%20craving%20something%20wild%20or%20want%20to%20indulge%20your%20deepest%20desires%2C%20we%27ve%20got%20it%20all%21%20%F0%9F%98%88%F0%9F%92%A6%0A%20%0A%20Join%20now%20and%20dive%20into%20a%20world%20of%20passion%20and%20pleasure%21%20%F0%9F%94%9E%F0%9F%92%83%20Ready%20to%20spice%20up%20your%20fantasies%3F%20%F0%9F%8D%91%F0%9F%94%A5%0A%20%0A%20%F0%9F%91%89%20%40XnxxxWorkBot%0A%20&url=https://t.me/xnxxxworkbot"
+SHARE_BUTTON = types.InlineKeyboardMarkup(
+  [[
+    types.InlineKeyboardButton("🥵 Share Me", url=SHARE_URL),
+    types.InlineKeyboardButton("🥵 My Dev", user_id=7402274873),
+    
+  ]]
+)
 
 def resize_image(path: str):
    img = Image.open(path)
@@ -60,7 +75,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         video = await porn.get_download_url(url)
         await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 ⚡ **Please wait processing....**")
         
-        logging.info('Trying to download video: {%s}' % video["download_url"])
+        logging.info('Trying to download video: {%s}' % video.get("download_url", "❌ ERROR")
         if "error" in video:
         	    return await msg.edit(f"❌ **Error: {video['error']}**")
         download_url = video["download_url"]
@@ -82,7 +97,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         for _ in range(1, 6):           
             path = f"{video_title}_screenshot_{_}.jpg"
             image_group.append(types.InputMediaPhoto(path))
-            clip.save_frame(path, t=random.randint(30, duration))
+            clip.save_frame(path, t=random.randint(10, duration))
             resize_image(path)
                            
         await msg.edit("👅 **Successfully Screenshot taken now trying to upload.....**")
@@ -90,10 +105,10 @@ async def _callback_query(bot, query: types.CallbackQuery):
         try:
             await msg.reply_media_group(media=image_group, quote=True)
         except Exception as e:
-             await msg.reply_text("❌ ERROR When Uploading Screenshots: {e}".format(e))
+             await msg.reply_text("❌ **ERROR When Uploading Screenshots**: {error}".format(error=str(e)))
 
         
-        await msg.edit(f"👅 💋 **Uploading {video_title} Video please wait 🥒 🥴🥵🥴....**")
+        await msg.edit(f"👅 💋 **Uploading {video_title} Video please wait 🥴 🥵 🥴....**")
         caption = f"**Video: {video_title} Successfully downloaded by @{bot.me.username}**"
       
         await query.message.reply_video(
@@ -102,7 +117,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
              thumb=open(random.choice(image_group).media, "rb"),
              caption=caption
         )
-        await msg.reply("😜 **Join @NandhaBots Dude! Honey** 😍 😍")
+        await msg.reply("😜 🥵 **Join @NandhaBots Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
         await msg.delete()
     	    	
     elif query_data.startswith("preview"):
@@ -207,7 +222,7 @@ async def _search(bot, message: types.Message):
     try:
         await app.get_chat_member("@NandhaBots", user.id)
     except Exception as e:
-        return await message.reply_text("😜 **Join @NandhaBots to use /search baby** 👻\n```python\n{error}```".format(error=str(e)))
+        return await message.reply_text("😜 **Join @NandhaBots to use /search baby** 👻\n```python\n{error}```".format(error=str(e)), reply_markup=CHANNEL_BUTTON)
 
     if len(msg_txt.split()) < 2:
         return await message.reply("```\n/search query```\n**Use this format to search though!**")
