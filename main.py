@@ -91,7 +91,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
       
         video_data = await porn.download(download_url, filename)
         if "error" in video_data:
-            return await msg.edit_text(text=str(video['error']))
+            return await msg.edit_text(text=str(video_data['error']))
 					
         clip = VideoFileClip(video_data["path"])
         duration = int(clip.duration)
