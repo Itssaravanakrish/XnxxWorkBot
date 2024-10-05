@@ -23,7 +23,7 @@ app = Client(
    api_id=28374181,
    api_hash="00b7ca7f535e816590db39e76f85d0c7",
    bot_token="7673638763:AAGuJ0XJ6oZ6E1b63Hjoqcvsl8ovYnDoVjk",
-   max_concurrent_transmissions=4
+   max_concurrent_transmissions=5
    
 )
 
