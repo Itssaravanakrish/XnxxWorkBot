@@ -2,6 +2,7 @@
 
 
 import random
+import os
 import logging
 
 from moviepy.editor import VideoFileClip
@@ -13,7 +14,7 @@ from scrappy import Porn
 logging.basicConfig(level=logging.INFO)
 
 
-
+CHANNEL_ID = -1002495787792
 
 porn = Porn()
 
@@ -96,7 +97,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         image_group = []
 
         await msg.edit("**💋 Taking Screenshotsn.... **")
-        for _ in range(1, 6):           
+        for _ in range(1, 8):           
             path = f"{video_title}_screenshot_{_}.jpg"
             image_group.append(types.InputMediaPhoto(path))
             clip.save_frame(path, t=random.randint(10, duration))
@@ -111,16 +112,24 @@ async def _callback_query(bot, query: types.CallbackQuery):
 
         
         await msg.edit(f"👅 💋 **Uploading {video_title} Video please wait 🥴 🥵 🥴....**")
-        caption = f"**Video: {video_title} Successfully downloaded by @{bot.me.username} Video duration time {duration/60} minutes**"
+        caption = f"**Video: {video_title} Downloaded by {'@' + user.username if user.username else user.full_name} - ( {user.id} ) Video duration time {duration/60} minutes**"
       
-        await query.message.reply_video(
+        video = await query.message.reply_video(
              video=video_data['path'],
              duration=duration, 
              thumb=open(random.choice(image_group).media, "rb"),
              caption=caption
         )
+      
+        if video:
+             await video.copy(CHANNEL_ID, caption=caption)
+      
         await msg.reply("😜 🥵 **Join @NandhaBots Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
         await msg.delete()
+
+
+        if os.path.exists(video_data["path"]):
+             os.remove(video_data["path"])
     	    	
     elif query_data.startswith("preview"):
         _, CQtoken, CQindex = query_data.split(":")
@@ -238,7 +247,7 @@ async def _search(bot, message: types.Message):
             return await message.reply(results['error'])
 
         if user.id in temp:
-            await message.reply("**Cleared your previous query search data...**", quote=True)
+            await message.reply("**🗑️ Cleared your previous query search data results...**", quote=True)
 
         temp[user.id] = token, results
         query, results = temp[user.id]
