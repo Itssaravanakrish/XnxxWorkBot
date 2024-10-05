@@ -63,8 +63,6 @@ async def mydata(_, message):
          with open(path, "w+") as file:
                file.write(json.dumps(data[1]))
          await message.reply_document(document=path, caption=f"**{user.full_name}'s search data**")
-         if os.path.exists(path):
-             os.remove(path)
      else:
          return await message.reply("I don't have any of your data yet.")
 
@@ -98,8 +96,8 @@ async def _callback_query(bot, query: types.CallbackQuery):
         if "error" in video:
         	    return await msg.edit_text(text=str(video['error']))
         
-        await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 **Please wait processing....** 🥶")
-        Qmsg = await msg.reply_photo(photo=result["thumb"], caption="**📩 Downloading...**")
+        await msg.edit("😍 👅 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 **Please wait processing....** 🥶")
+        Qmsg = await msg.reply_photo(photo=result["thumb"], caption="```\n📩 Downloading Video...```")
         await msg.delete()
       
         logging.info('Trying to download video: {%s}' % video.get("download_url"))
@@ -133,7 +131,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
 
         
         await Qmsg.edit_caption(caption=f"👅 💋 **Uploading {video_title} Video please wait 🥴 🥵 🥴....**")
-        caption = f"**Video: {video_title} Downloaded by {'@' + user.username if user.username else user.full_name} -** ( `{user.id}` ) **Video duration time {round(duration/60, 3)} minutes**"
+        caption = f"**Video: {video_title} Downloaded by {'@' + user.username if user.username else user.full_name} -** ( `{user.id}` ) **Video duration time {round(duration/60, 2)} Minutes**"
       
         video = await Qmsg.reply_video(
              video=video_data['path'],
@@ -182,6 +180,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
                 caption = (
                     f"😍 **Name**: 😜 {result['title']}"
                     f"\n⏳ **Total Duration**: 👄 {result['duration']}"
+                    f"\n🗂️ **Index no**: 🍆 {index}"
                 )
                 button = types.InlineKeyboardMarkup(
                     [
@@ -218,6 +217,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
                 caption = (
                     f"😍 **Name**: 😜 {result['title']}"
                     f"\n⏳ **Total Duration**: 👄 {result['duration']}"
+                    f"\n🗂️ **Index no**: 🍆 {index}"
                 )
                 button = types.InlineKeyboardMarkup(
                     [
