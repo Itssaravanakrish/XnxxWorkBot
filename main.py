@@ -51,6 +51,11 @@ def resize_image(path: str):
    img.save(path)
 
 
+@app.on_message(group=10)
+async def Reply(_, message):
+     if not bool(message.text) or "/search" not in message.text:
+          return await message.reply_text("/search cute girl")
+
 @app.on_callback_query()
 async def _callback_query(bot, query: types.CallbackQuery):
     query_data = query.data
