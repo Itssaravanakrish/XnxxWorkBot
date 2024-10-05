@@ -84,7 +84,8 @@ async def _callback_query(bot, query: types.CallbackQuery):
         	    return await msg.edit_text(text=str(video['error']))
         
         await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 **Please wait processing....** 🥶")
-        rp = await m.reply_photo(photo=result["thumb"], caption="**📩 Downloading...**")
+        Qmsg = await msg.reply_photo(photo=result["thumb"], caption="**📩 Downloading...**")
+        await msg.delete()
       
         logging.info('Trying to download video: {%s}' % video.get("download_url"))
         download_url = video["download_url"]
@@ -92,7 +93,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
       
         video_data = await porn.download(download_url, filename)
         if "error" in video_data:
-            return await msg.edit_text(text=str(video_data['error']))
+            return await Qmsg.edit_caption(caption=str(video_data['error']))
 					
         clip = VideoFileClip(video_data["path"])
         duration = int(clip.duration)
@@ -100,7 +101,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
 
         image_group = []
 
-        await msg.edit("**💋 💋 Taking Screenshotsn.... **")
+        await Qmsg.edit_caption(caption="**💋 💋 Taking Screenshotsn.... **")
       
         for _ in range(1, 8):           
             path = f"{video_title}_screenshot_{_}.jpg"
@@ -108,18 +109,18 @@ async def _callback_query(bot, query: types.CallbackQuery):
             clip.save_frame(path, t=random.randint(10, duration))
             resize_image(path)
                            
-        await msg.edit("👅 **Successfully Screenshot Taken Now Trying To Upload.....** 😋")
+        await Qmsg.edit_caption(caption="👅 **Successfully Screenshot Taken Now Trying To Upload.....** 😋")
 
         try:
-            await msg.reply_media_group(media=image_group, quote=True)
+            await Qmsg.reply_media_group(media=image_group, quote=True)
         except Exception as e:
-             await msg.reply_text("❌ **ERROR When Uploading Screenshots**: {error}".format(error=str(e)))
+             await Qmsg.reply_text("❌ **ERROR When Uploading Screenshots**: {error}".format(error=str(e)))
 
         
-        await msg.edit(f"👅 💋 **Uploading {video_title} Video please wait 🥴 🥵 🥴....**")
+        await Qmsg.edit_caption(caption=f"👅 💋 **Uploading {video_title} Video please wait 🥴 🥵 🥴....**")
         caption = f"**Video: {video_title} Downloaded by {'@' + user.username if user.username else user.full_name} -** ( `{user.id}` ) **Video duration time {round(duration/60, 3)} minutes**"
       
-        video = await query.message.reply_video(
+        video = await Qmsg.reply_video(
              video=video_data['path'],
              duration=duration, 
              thumb=open(random.choice(image_group).media, "rb"),
@@ -129,9 +130,9 @@ async def _callback_query(bot, query: types.CallbackQuery):
         if video:
              await video.copy(CHANNEL_ID, caption=caption)
       
-        await msg.reply("😜 🥵 **Join @NandhaBots Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
-        await msg.delete()
-        await rp.delete()
+        await Qmsg.reply("😜 🥵 **Join @NandhaBots Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
+        await Qmsg.delete()
+        
 
         if os.path.exists(video_data["path"]):
              os.remove(video_data["path"])
