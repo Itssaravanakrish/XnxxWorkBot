@@ -180,7 +180,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
                 caption = (
                     f"😍 **Name**: 😜 {result['title']}"
                     f"\n⏳ **Total Duration**: 👄 {result['duration']}"
-                    f"\n🗂️ **Index no**: 🍆 {index}"
+                    f"\n🗂️ **Index no**: {index}"
                 )
                 button = types.InlineKeyboardMarkup(
                     [
@@ -211,13 +211,14 @@ async def _callback_query(bot, query: types.CallbackQuery):
             token, results = temp[user.id]
             if int(CQindex) == len(results) - 1:
                 return await query.answer("You can't go further")
+              
             if CQtoken == token:
                 index = int(CQindex) + 1
                 result = results[index]
                 caption = (
                     f"😍 **Name**: 😜 {result['title']}"
                     f"\n⏳ **Total Duration**: 👄 {result['duration']}"
-                    f"\n🗂️ **Index no**: 🍆 {index}"
+                    f"\n🗂️ **Index no**: {index}"
                 )
                 button = types.InlineKeyboardMarkup(
                     [
@@ -274,21 +275,23 @@ async def _search(bot, message: types.Message):
         query, results = temp[user.id]
 
         result = results[0]
+        index = 0
         caption = (
             f"😍 **Name**: 😜 {result['title']}"
             f"\n⏳ **Total Duration**: 👄 {result['duration']}"
+            f"\n🗂️ **Index no**: {index}"
         )
 
         button = types.InlineKeyboardMarkup(
             [
                 [
-                    types.InlineKeyboardButton("Next ⏭️", callback_data=f"next:{token}:0"),
+                    types.InlineKeyboardButton("Next ⏭️", callback_data=f"next:{token}:{index}"),
                 ],
                 [
-                    types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:0"),
+                    types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:{index}"),
                 ],
                 [
-                    types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:0")
+                    types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:{index}")
                 ]
             ]
         )
