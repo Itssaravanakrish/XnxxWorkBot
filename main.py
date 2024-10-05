@@ -84,6 +84,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         	    return await msg.edit_text(text=str(video['error']))
         
         await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 **Please wait processing....** 🥶")
+        rp = await m.reply_photo(photo=result["thumb"], caption="**📩 Downloading...**")
       
         logging.info('Trying to download video: {%s}' % video.get("download_url"))
         download_url = video["download_url"]
@@ -130,7 +131,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
       
         await msg.reply("😜 🥵 **Join @NandhaBots Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
         await msg.delete()
-
+        await rp.delete()
 
         if os.path.exists(video_data["path"]):
              os.remove(video_data["path"])
