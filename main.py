@@ -111,7 +111,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
 
         
         await msg.edit(f"👅 💋 **Uploading {video_title} Video please wait 🥴 🥵 🥴....**")
-        caption = f"**Video: {video_title} Successfully downloaded by @{bot.me.username}**"
+        caption = f"**Video: {video_title} Successfully downloaded by @{bot.me.username} Video duration time {duration/60} minutes**"
       
         await query.message.reply_video(
              video=video_data['path'],
