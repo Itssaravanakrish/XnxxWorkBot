@@ -203,7 +203,9 @@ async def _callback_query(bot, query: types.CallbackQuery):
                             types.InlineKeyboardButton("Back ⏮️", callback_data=f"back:{token}:{index}"),
                         ],
                         [
-                            types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:{index}"),
+                            types.InlineKeyboardButton("Preview 😋", callback_data=f"preview:{token}:{index}"),
+			    types.InlineKeyboardButton("Data 📩", callback_data=f"show:{token}:{index}"),
+
                            ], [
                            types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:0")       
 	         	         
@@ -241,7 +243,9 @@ async def _callback_query(bot, query: types.CallbackQuery):
                             types.InlineKeyboardButton("Back ⏮️", callback_data=f"back:{token}:{index}"),
                         ],
                         [
-                            types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:{index}"),
+                            types.InlineKeyboardButton("Preview 😋", callback_data=f"preview:{token}:{index}"),
+			    types.InlineKeyboardButton("Data 📩", callback_data=f"show:{token}:{index}"),
+				
                           ], [
                            types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:0")       
 	         	         
