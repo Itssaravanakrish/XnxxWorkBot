@@ -66,7 +66,7 @@ class Porn:
             async with httpx.AsyncClient() as client:
                   response = await client.get(download_url)
                   if response.status_code != 200:
-                      return {"error": f"cant download the video: {response.text}"}
+                      return {"error": f"cant download the video: {str(response.text)}"}
                   content = response.read()
 
                   if filename is None:
@@ -75,7 +75,7 @@ class Porn:
                        file.write(content)
                   return {"path": os.path.abspath(filename) }
         except Exception as error:
-              return {"error": f"❌ ERROR: {error}"}
+              return {"error": f"❌ ERROR:\n{str(error)}"}
 
     async def get_download_url(self, url: str) -> str:
         """
@@ -91,7 +91,7 @@ class Porn:
             async with httpx.AsyncClient() as session:
                  response = await session.get(url, headers=self.get_header())
                  if response.status_code != 200:
-                    return {"error":  f"❌ ERROR: {str(response.text)}"}
+                    return {"error":  f"❌ ERROR:\n{str(response.text)}"}
                  soup = bs(response.text, "html.parser")
                  try:
                     source = soup.find_all("div", class_="video")[0].find("source").get("src")
