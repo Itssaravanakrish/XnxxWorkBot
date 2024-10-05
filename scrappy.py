@@ -91,8 +91,8 @@ class Porn:
             async with httpx.AsyncClient() as session:
                  response = await session.get(url, headers=self.get_header())
                  if response.status_code != 200:
-                    return {"error":  response.reason}
-                 soup = bs(response.text(), "html.parser")
+                    return {"error":  response.text}
+                 soup = bs(response.text, "html.parser")
                  try:
                     source = soup.find_all("div", class_="video")[0].find("source").get("src")
                  except Exception as e:
