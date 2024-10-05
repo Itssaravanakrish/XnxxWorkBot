@@ -75,7 +75,7 @@ class Porn:
                        file.write(content)
                   return {"path": os.path.abspath(filename) }
         except Exception as e:
-              return {"error": "❌ ERROR: {e}".format(e)}
+              return {"error": "❌ ERROR: {error}".format(error=str(e))}
 
     async def get_download_url(self, url: str) -> str:
         """
