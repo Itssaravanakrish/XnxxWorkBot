@@ -56,7 +56,7 @@ def resize_image(path: str):
 @app.on_message(filters.command("mydata"))
 async def mydata(_, message):
      user = message.from_user
-     if user.in in temp:
+     if user.id in temp:
          data = temp[user.id]
          path = f"{user.full_name}_data.json"
          with open(path, "w+") as file:
