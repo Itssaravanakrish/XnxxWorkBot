@@ -77,16 +77,13 @@ async def _callback_query(bot, query: types.CallbackQuery):
         
         logging.info('Trying to download video: {%s}' % video.get("download_url", "❌ ERROR"))
         if "error" in video:
-        	    return await msg.edit(f"❌ **Error: {video['error']}**")
+        	    return await msg.edit(video['error'])
+          
         download_url = video["download_url"]
-        
         filename = result["title"] + ".mp4"
-
-        try:
-           video_data = await porn.download(download_url, filename)
-        except Exception as e:
-        	    return await msg.edit(f"😓 **Sorry the wget module got a error while downloading....** `{e}`")
-
+        video_data = await porn.download(download_url, filename)
+        if "error" in video_data:
+             return await msg.edit(video['error'])
         clip = VideoFileClip(video_data["path"])
         duration = int(clip.duration)
         video_title = result['title']
