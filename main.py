@@ -75,7 +75,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         video = await porn.get_download_url(url)
         await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 ⚡ **Please wait processing....**")
         
-        logging.info('Trying to download video: {%s}' % video.get("download_url", "❌ ERROR")
+        logging.info('Trying to download video: {%s}' % video.get("download_url", "❌ ERROR"))
         if "error" in video:
         	    return await msg.edit(f"❌ **Error: {video['error']}**")
         download_url = video["download_url"]
