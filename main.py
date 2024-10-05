@@ -204,7 +204,7 @@ async def _search(bot, message: types.Message):
 	         msg_txt = message.text
 	         user = message.from_user
            try:
-               await app.get_chat_member("@NandhaBots", user.id)
+              await app.get_chat_member("@NandhaBots", user.id)
            except Exception as e:
                 return await m.reply_text("😜 **Join @NandhaBots to use /search baby** 👻\n```python\n{e}```".format(e))
 	         
