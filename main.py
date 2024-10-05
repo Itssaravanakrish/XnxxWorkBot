@@ -201,54 +201,59 @@ async def _callback_query(bot, query: types.CallbackQuery):
 
 @app.on_message(filters.command("search") & filters.private)
 async def _search(bot, message: types.Message):
-	         msg_txt = message.text
-	         user = message.from_user
-           try:
-              await app.get_chat_member("@NandhaBots", user.id)
-           except Exception as e:
-                return await m.reply_text("😜 **Join @NandhaBots to use /search baby** 👻\n```python\n{e}```".format(e))
-	         
-	         if len(msg_txt.split()) < 2:
-	         	     return await message.reply("```\n/search query```\n**Use this format to search though!**")
-	         else:
-	         	     
-	         	     query = message.text.split(maxsplit=1)[1]
-	         	     results = await porn.search(query)
-	         	     token = porn.get_token()
-	         	     
-	         	     if 'error' in results:
-	         	      	    return await message.reply(results['error'])
-	         	     if user.id in temp:
-	         	      	     await message.reply("**Cleared your previous query search data...**", quote=True)
-	         	      	     
-	         	     temp[user.id] = token, results
-	         	     query, results = temp[user.id]
-	         	     
-	         	     result = results[0]
-	         	     caption = (
-	         	         f"😍 **Name**: 😜 {result['title']}"
-	         	         f"\n⏳ **Total Duration**: 👄 {result['duration']}"
-	         	     )
-	         	     
-	         	     button = types.InlineKeyboardMarkup(
-	         	         [[ 
-	         	             types.InlineKeyboardButton("Next ⏭️", callback_data=f"next:{token}:0"),
-	         	              ], [
-                           types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:0"),
-                        ], [
-                           types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:0")       
-	         	         ]]
-	         	     )
-	         	     await message.reply_photo(
-	         	           photo=result['thumb'],
-	         	           caption=caption,
-	         	           reply_markup=button,
-	         	           quote=True
-	         	     )
-	         	           
-	         	           
+    msg_txt = message.text
+    user = message.from_user
+
+    try:
+        await app.get_chat_member("@NandhaBots", user.id)
+    except Exception as e:
+        return await message.reply_text("😜 **Join @NandhaBots to use /search baby** 👻\n```python\n{e}```".format(e))
+
+    if len(msg_txt.split()) < 2:
+        return await message.reply("```\n/search query```\n**Use this format to search though!**")
+
+    else:
+        query = message.text.split(maxsplit=1)[1]
+        results = await porn.search(query)
+        token = porn.get_token()
+
+        if 'error' in results:
+            return await message.reply(results['error'])
+
+        if user.id in temp:
+            await message.reply("**Cleared your previous query search data...**", quote=True)
+
+        temp[user.id] = token, results
+        query, results = temp[user.id]
+
+        result = results[0]
+        caption = (
+            f"😍 **Name**: 😜 {result['title']}"
+            f"\n⏳ **Total Duration**: 👄 {result['duration']}"
+        )
+
+        button = types.InlineKeyboardMarkup(
+            [
+                [
+                    types.InlineKeyboardButton("Next ⏭️", callback_data=f"next:{token}:0"),
+                ],
+                [
+                    types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:0"),
+                ],
+                [
+                    types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:0")
+                ]
+            ]
+        )
+
+        await message.reply_photo(
+            photo=result['thumb'],
+            caption=caption,
+            reply_markup=button,
+            quote=True
+        )
+
 app.run()
-                                
 	         	      	   
 	         	   
 	         
