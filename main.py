@@ -84,14 +84,14 @@ async def _callback_query(bot, query: types.CallbackQuery):
         	    return await msg.edit_text(text=str(video['error']))
         
         await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 **Please wait processing....** 🥶")
-        
-			  logging.info('Trying to download video: {%s}' % video.get("download_url"))
+      
+        logging.info('Trying to download video: {%s}' % video.get("download_url"))
         download_url = video["download_url"]
         filename = result["title"] + ".mp4"
-			
+      
         video_data = await porn.download(download_url, filename)
         if "error" in video_data:
-             return await msg.edit_text(text=str(video['error']))
+            return await msg.edit_text(text=str(video['error']))
 					
         clip = VideoFileClip(video_data["path"])
         duration = int(clip.duration)
@@ -99,7 +99,8 @@ async def _callback_query(bot, query: types.CallbackQuery):
 
         image_group = []
 
-        await msg.edit("**💋 Taking Screenshotsn.... **")
+        await msg.edit("**💋 💋 Taking Screenshotsn.... **")
+      
         for _ in range(1, 8):           
             path = f"{video_title}_screenshot_{_}.jpg"
             image_group.append(types.InputMediaPhoto(path))
