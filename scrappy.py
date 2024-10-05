@@ -87,17 +87,21 @@ class Porn:
         Returns:
             str: The downloadable URL or an error message.
         """
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=self.get_header()) as response:
-                if response.status != 200:
+        try:
+            async with httpx.AsyncClient() as session:
+                 response = await session.get(url, headers=self.get_header())
+                 if response.status != 200:
                     return {"error":  response.reason}
-                soup = bs(await response.text(), "html.parser")
-                try:
+                 soup = bs(await response.text(), "html.parser")
+                 try:
                     source = soup.find_all("div", class_="video")[0].find("source").get("src")
-                except Exception as e:
-                    return {"error": "can't find downloadable url for this."}
-                return {"download_url": source}
+                 except Exception as e:
+                     return {"error": "❌ Can't fetch download url ERROR: {error}".format(error=str(e))}
+                 return {"download_url": source}
 
+        except Exception as e:
+               return {"error": "❌ Can't fetch download url ERROR: {error}".format(error=str(e))}           
+               
     async def search(self, query: str) -> list:
         """
         Search for videos on the xnxxx.work website.
