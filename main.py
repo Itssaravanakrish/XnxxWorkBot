@@ -4,6 +4,7 @@
 import random
 import os
 import logging
+import json
 
 from moviepy.editor import VideoFileClip
 from PIL import Image
@@ -60,7 +61,7 @@ async def mydata(_, message):
          data = temp[user.id]
          path = f"{user.full_name}_data.json"
          with open(path, "w+") as file:
-               file.write(data)
+               file.write(json.dumps(data[1]))
          await message.reply_document(document=path, caption=f"**{user.full_name}'s search data**")
          if os.path.exists(path):
              os.remove(path)
