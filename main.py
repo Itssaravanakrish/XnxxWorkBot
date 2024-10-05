@@ -78,18 +78,21 @@ async def _callback_query(bot, query: types.CallbackQuery):
         msg = await query.message.reply("😍 **Don't Panic Your requested video started to downloading so please wait hony...**")
         
         url = porn.base_url + result["link"]
+			
         video = await porn.get_download_url(url)
-        await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 ⚡ **Please wait processing....**")
-        
-        logging.info('Trying to download video: {%s}' % video.get("download_url", "❌ ERROR"))
         if "error" in video:
-        	    return await msg.edit(video['error'])
-          
+        	    return await msg.edit_text(text=str(video['error']))
+        
+        await msg.edit("😍 **Successfully downloadable link scrapped now trying to download the file** 😋 🍆 **Please wait processing....** 🥶")
+        
+			  logging.info('Trying to download video: {%s}' % video.get("download_url"))
         download_url = video["download_url"]
         filename = result["title"] + ".mp4"
+			
         video_data = await porn.download(download_url, filename)
         if "error" in video_data:
-             return await msg.edit(video['error'])
+             return await msg.edit_text(text=str(video['error']))
+					
         clip = VideoFileClip(video_data["path"])
         duration = int(clip.duration)
         video_title = result['title']
@@ -103,7 +106,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
             clip.save_frame(path, t=random.randint(10, duration))
             resize_image(path)
                            
-        await msg.edit("👅 **Successfully Screenshot taken now trying to upload.....**")
+        await msg.edit("👅 **Successfully Screenshot Taken Now Trying To Upload.....** 😋")
 
         try:
             await msg.reply_media_group(media=image_group, quote=True)
