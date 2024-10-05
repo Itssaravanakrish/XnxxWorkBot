@@ -55,7 +55,7 @@ def resize_image(path: str):
 
 
 @app.on_message(filters.command("mydata"))
-async def mydata(_, message):
+async def _mydata(_, message):
      user = message.from_user
      if user.id in temp:
          data = temp[user.id]
@@ -67,7 +67,7 @@ async def mydata(_, message):
          return await message.reply("I don't have any of your data yet.")
 
 @app.on_message(~filters.command(["search", "mydata"]), group=10)
-async def Reply(_, message):
+async def _Reply(_, message):
      return await message.reply_text("/search hot sexy girl")
 
 @app.on_callback_query()
@@ -76,7 +76,20 @@ async def _callback_query(bot, query: types.CallbackQuery):
     user = query.from_user
 
 
-    if query_data.startswith("download"):
+    if query_data.startswith("show"):
+        _, CQtoken, CQindex = query_data.split(":")
+        if user.id not in temp:
+            return await query.answer("You haven't registered any search though!", show_alert=True)
+        
+        token, results = temp[user.id]
+        
+        if CQtoken != token:
+            return await query.answer("This Query is expired please search again..", show_alert=True)
+        
+        result = results[int(CQindex)]
+        await query.message.reply_text(str(result))
+  
+    elif query_data.startswith("download"):
         _, CQtoken, CQindex = query_data.split(":")
         if user.id not in temp:
             return await query.answer("You haven't registered any search though!", show_alert=True)
@@ -88,6 +101,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         
         result = results[int(CQindex)]
         await query.message.delete()
+      
         msg = await query.message.reply("😍 **Don't Panic Your requested video started to downloading so please wait hony...**")
         
         url = porn.base_url + result["link"]
@@ -261,6 +275,7 @@ async def _search(bot, message: types.Message):
         return await message.reply("```\n/search query```\n**Use this format to search though!**")
 
     else:
+      
         query = message.text.split(maxsplit=1)[1]
         results = await porn.search(query)
         token = porn.get_token()
@@ -288,7 +303,8 @@ async def _search(bot, message: types.Message):
                     types.InlineKeyboardButton("Next ⏭️", callback_data=f"next:{token}:{index}"),
                 ],
                 [
-                    types.InlineKeyboardButton("Get Preview 😋", callback_data=f"preview:{token}:{index}"),
+                    types.InlineKeyboardButton("Preview 😋", callback_data=f"preview:{token}:{index}"),
+                    types.InlineKeyboardButton("Data 📩", callback_data=f"show:{token}:{index}"),
                 ],
                 [
                     types.InlineKeyboardButton("Download 👅", callback_data=f"download:{token}:{index}")
