@@ -66,7 +66,7 @@ async def _mydata(_, message):
      else:
          return await message.reply("I don't have any of your data yet.")
 
-@app.on_message(~filters.command(["search", "mydata"]), group=10)
+@app.on_message(filters.private & ~filters.command(["search", "mydata"]), group=10)
 async def _Reply(_, message):
      return await message.reply_text("/search hot sexy girl")
 
