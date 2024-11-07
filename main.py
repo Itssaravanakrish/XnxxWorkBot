@@ -15,7 +15,7 @@ from scrappy import Porn
 logging.basicConfig(level=logging.INFO)
 
 
-CHANNEL_ID = -1002495787792
+CHANNEL_ID = -1002316696001
 
 porn = Porn()
 
@@ -23,7 +23,7 @@ app = Client(
    name="xnxxwork",
    api_id=28374181,
    api_hash="00b7ca7f535e816590db39e76f85d0c7",
-   bot_token="7673638763:AAGuJ0XJ6oZ6E1b63Hjoqcvsl8ovYnDoVjk",
+   bot_token="8025985068:AAFaA-FmxgZpTZ1Rz0DIHr37faG-AwLu4zU",
    max_concurrent_transmissions=5
    
 )
@@ -34,15 +34,15 @@ temp = {}
 
 CHANNEL_BUTTON = types.InlineKeyboardMarkup(
   [[
-    types.InlineKeyboardButton("🥵 Join My Channel", url="https://t.me/NandhaBots"),
+    types.InlineKeyboardButton("🥵 Join My Channel", url="https://t.me/venuma"),
   ]]
 )
 
-SHARE_URL = "tg://share?text=@XnxxxWorkBot%20is%20your%20ultimate%20gateway%20to%20the%20hottest%20adult%20content%21%20%F0%9F%94%A5%F0%9F%92%8B%20Whether%20you%27re%20craving%20something%20wild%20or%20want%20to%20indulge%20your%20deepest%20desires%2C%20we%27ve%20got%20it%20all%21%20%F0%9F%98%88%F0%9F%92%A6%0A%20%0A%20Join%20now%20and%20dive%20into%20a%20world%20of%20passion%20and%20pleasure%21%20%F0%9F%94%9E%F0%9F%92%83%20Ready%20to%20spice%20up%20your%20fantasies%3F%20%F0%9F%8D%91%F0%9F%94%A5%0A%20%0A%20%F0%9F%91%89%20%40XnxxxWorkBot%0A%20&url=https://t.me/xnxxxworkbot"
+SHARE_URL = "tg://share?text=@XnxxDown_Bot%20is%20your%20ultimate%20gateway%20to%20the%20hottest%20adult%20content%21%20%F0%9F%94%A5%F0%9F%92%8B%20Whether%20you%27re%20craving%20something%20wild%20or%20want%20to%20indulge%20your%20deepest%20desires%2C%20we%27ve%20got%20it%20all%21%20%F0%9F%98%88%F0%9F%92%A6%0A%20%0A%20Join%20now%20and%20dive%20into%20a%20world%20of%20passion%20and%20pleasure%21%20%F0%9F%94%9E%F0%9F%92%83%20Ready%20to%20spice%20up%20your%20fantasies%3F%20%F0%9F%8D%91%F0%9F%94%A5%0A%20%0A%20%F0%9F%91%89%20%40XnxxxWorkBot%0A%20&url=https://t.me/XnxxDown_Bot"
 SHARE_BUTTON = types.InlineKeyboardMarkup(
   [[
     types.InlineKeyboardButton("🥵 Share Me", url=SHARE_URL),
-    types.InlineKeyboardButton("🥵 My Dev", user_id=7402274873),
+    types.InlineKeyboardButton("🥵 My Dev", user_id=7045923188),
     
   ]]
 )
@@ -157,7 +157,7 @@ async def _callback_query(bot, query: types.CallbackQuery):
         if video:
              await video.copy(CHANNEL_ID, caption=caption)
       
-        await Qmsg.reply("😜 🥵 **Join @NandhaBots Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
+        await Qmsg.reply("😜 🥵 **Join @Venuma Honey!** 😋 😍", reply_markup=SHARE_BUTTON)
         await Qmsg.delete()
         
 
@@ -271,9 +271,9 @@ async def _search(bot, message: types.Message):
     user = message.from_user
 
     try:
-        await app.get_chat_member("@NandhaBots", user.id)
+        await app.get_chat_member("@Venuma", user.id)
     except Exception as e:
-        return await message.reply_text("😜 **Join @NandhaBots to use /search baby** 👻\n```python\n{error}```".format(error=str(e)), reply_markup=CHANNEL_BUTTON)
+        return await message.reply_text("😜 **Join @Venuma to use /search baby** 👻\n```python\n{error}```".format(error=str(e)), reply_markup=CHANNEL_BUTTON)
 
     if len(msg_txt.split()) < 2:
         return await message.reply("```\n/search query```\n**Use this format to search though!**")
