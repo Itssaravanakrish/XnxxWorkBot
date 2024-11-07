@@ -5,7 +5,7 @@
 if [ -z $UPSTREAM_REPO ]
 then
   echo "Cloning main Repository"
-  git clone https://github.com/Itssaravanakrish/XnxxWorkBot.git /XnxxWorkBot 
+  git clone https://github.com/TheDarkSaiyan/XnxxWorkBot.git /XnxxWorkBot 
 else
   echo "Cloning Custom Repo from $UPSTREAM_REPO "
   git clone $UPSTREAM_REPO /XnxxWorkBot 
