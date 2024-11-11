@@ -5,6 +5,7 @@ import random
 import os
 import logging
 import json
+from os import environ,getenv
 
 from aiohttp import web
 from moviepy.editor import VideoFileClip
@@ -20,7 +21,7 @@ CHANNEL_ID = -1002316696001
 
 porn = Porn()
 
-PORT = 8080
+PORT = environ.get("PORT", "8000")
 
 tamilini = web.AppRunner(await web_server())
     await tamilini.setup()
