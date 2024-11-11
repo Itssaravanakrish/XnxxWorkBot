@@ -3,7 +3,7 @@
 # Ask Doubt on telegram @KingVJ01
 
 from aiohttp import web
-from .route import routes
+from .app import routes
 
 
 async def web_server():
