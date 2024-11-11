@@ -6,11 +6,12 @@ import os
 import logging
 import json
 
+from aiohttp import web
 from moviepy.editor import VideoFileClip
 from PIL import Image
 from pyrogram import filters, Client, types
 from scrappy import Porn
-
+from web_admin import web_server
 
 logging.basicConfig(level=logging.INFO)
 
@@ -18,6 +19,13 @@ logging.basicConfig(level=logging.INFO)
 CHANNEL_ID = -1002316696001
 
 porn = Porn()
+
+PORT = 8080
+
+tamilini = web.AppRunner(await web_server())
+    await tamilini.setup()
+    bind_address = "0.0.0.0"
+    await web.TCPSite(app, bind_address, PORT).start()
 
 app = Client(
    name="xnxxwork",
