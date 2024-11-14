@@ -21,7 +21,7 @@ CHANNEL_ID = -1002316696001
 
 porn = Porn()
 
-PORT = environ.get("PORT", "8000")
+PORT = environ.get("PORT", "8080")
 
 tamilini = web.AppRunner(await web_server())
     await tamilini.setup()
