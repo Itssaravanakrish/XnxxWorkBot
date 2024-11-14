@@ -27,6 +27,7 @@ tamilini = web.AppRunner(await web_server())
     await tamilini.setup()
     bind_address = "0.0.0.0"
     await web.TCPSite(app, bind_address, PORT).start()
+    await idle()
 
 app = Client(
    name="xnxxwork",
