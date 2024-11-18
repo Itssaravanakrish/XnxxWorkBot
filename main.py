@@ -10,7 +10,7 @@ from moviepy.editor import VideoFileClip
 from PIL import Image
 from pyrogram import filters, Client, types
 from scrappy import Porn
-from web_admin import web_server
+
 
 logging.basicConfig(level=logging.INFO)
 
