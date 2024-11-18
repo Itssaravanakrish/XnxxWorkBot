@@ -16,18 +16,23 @@ from web_admin import web_server
 
 logging.basicConfig(level=logging.INFO)
 
+PORT = getenv('PORT')
+NAME_APP = getenv("NAME_APP")
+API_HASH = getenv("API_HASH")
+API_ID = getenv("API_ID")
+BOT_TOKEN = getenv("BOT_TOKEN")
 
 CHANNEL_ID = -1002316696001
 
 porn = Porn()
 
-PORT = environ.get("PORT", "8080")
-
-tamilini = web.AppRunner(await web_server())
-    await tamilini.setup()
-    bind_address = "0.0.0.0"
-    await web.TCPSite(tamilini, bind_address, PORT).start()
-    await idle()
+if exists('./Debug.py'):
+    from Debug import BOT_TOKEN, PORT, API_HASH, API_ID
+    print("MODO DEBUG")
+    DEBUG = True
+else:
+    print("MODO ONLINE")
+    DEBUG = False
 
 app = Client(
    name="xnxxwork",
@@ -333,9 +338,33 @@ async def _search(bot, message: types.Message):
             quote=True
         )
 
-app.run()
-tamilini.run()	         	      	   
+app.run()         	      	   
 	         	   
-	         
+server = web.Application()
+runner = web.AppRunner(server)
+
+
+async def despertar(sleep_time=10 * 60):
+    while True:
+        await asyncsleep(sleep_time)
+        async with ClientSession() as session:
+            async with session.get(f'https://{NAME_APP}.onrender.com/' + "/Despiertate"):
+                pass
+
+
+async def run_server():
+    await app.start()
+    print('Bot Iniciado')
+    # Iniciando User Bot
+    await runner.setup()
+    print('Iniciando Server')
+    await web.TCPSite(runner, host='0.0.0.0', port=PORT).start()
+    print('Server Iniciado')
+
+if __name__ == '__main__':
+    app.loop.run_until_complete(run_server())
+    if not DEBUG:
+        app.loop.run_until_complete(despertar())
+    idle()	         
 	         
 
