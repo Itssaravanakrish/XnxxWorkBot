@@ -1,6 +1,4 @@
 
-
-
 import random
 import os
 import logging
@@ -16,11 +14,12 @@ from web_admin import web_server
 
 logging.basicConfig(level=logging.INFO)
 
-PORT = getenv('PORT')
+PORT = getenv("PORT", "8080")
 NAME_APP = getenv("NAME_APP")
-API_HASH = getenv("API_HASH")
-API_ID = getenv("API_ID")
-BOT_TOKEN = getenv("BOT_TOKEN")
+API_HASH = getenv("API_HASH", "00b7ca7f535e816590db39e76f85d0c7")
+API_ID = getenv("API_ID", "28374181")
+BOT_TOKEN = getenv("BOT_TOKEN", "8025985068:AAFaA-FmxgZpTZ1Rz0DIHr37faG-AwLu4zU")
+
 
 CHANNEL_ID = -1002316696001
 
