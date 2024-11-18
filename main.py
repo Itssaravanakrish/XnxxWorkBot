@@ -4,7 +4,7 @@ import os
 import logging
 import json
 from os import environ,getenv
-
+from os.path import exists
 from aiohttp import web
 from moviepy.editor import VideoFileClip
 from PIL import Image
