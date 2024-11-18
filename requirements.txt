@@ -8,3 +8,12 @@ https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
 tgcrypto
 Flask<= 3.0.0
 gunicorn==19.6.0
+
+#new
+aiohttp
+Pyrogram==2.0.93
+TgCrypto
+requests
+beautifulsoup4
+yt_dlp
+opencv-contrib-python-headless
