@@ -12,11 +12,13 @@ from requests import get
 import re
 from tools import download, extractImg, extractSeconds
 
-PORT = getenv('PORT')
-NAME_APP = getenv("NAME_APP")
-API_HASH = getenv("API_HASH")
-API_ID = getenv("API_ID")
-BOT_TOKEN = getenv("BOT_TOKEN")
+PORT = getenv("PORT", "8080")
+NAME_APP = getenv("NAME_APP", xxapp)
+API_HASH = getenv("API_HASH", "00b7ca7f535e816590db39e76f85d0c7")
+API_ID = getenv("API_ID", "28374181")
+BOT_TOKEN = getenv("BOT_TOKEN", "8025985068:AAFaA-FmxgZpTZ1Rz0DIHr37faG-AwLu4zU")
+
+-1002316696001
 
 if exists('./Debug.py'):
     from Debug import BOT_TOKEN, PORT, API_HASH, API_ID
@@ -60,15 +62,15 @@ def mostrar_info(app, message):
                 file = download(link)
                 
                 sms.edit_text('Uploading video...')
-                video = app.send_video(-1001515779942, file[0], duration=extractSeconds(file[0]), thumb=file[1])
+                video = app.send_video(-1002316696001, file[0], duration=extractSeconds(file[0]), thumb=file[1])
                 sms.edit_text('**Extracting images...**')
                 list_img = extractImg(file[0], message)
                 
                 caption = show_metadata(link)
-                caption += f"\n\n**🔥 [DOWNLOAD VIDEO](https://t.me/c/{1515779942}/{video.id}) 🔥**"
+                caption += f"\n\n**🔥 [DOWNLOAD VIDEO](https://t.me/c/{2316696001}/{video.id}) 🔥**"
                 
                 sms.edit_text('**Sending images...**')
-                media = app.send_media_group(-1001737310030, list_img)
+                media = app.send_media_group(-1002316696001, list_img)
                 media[-1].edit_caption(caption)
                 
         message.reply('**ALL TASK COMPLETED**')
@@ -78,7 +80,7 @@ def mostrar_info(app, message):
     file = download(message.text)
     
     sms.edit_text('Uploading video...')
-    video = app.send_video(-1001515779942, file[0], duration=extractSeconds(file[0]), thumb=file[1])
+    video = app.send_video(-1002316696001, file[0], duration=extractSeconds(file[0]), thumb=file[1])
 
     sms.edit_text('**Extracting images...**')
     list_img = extractImg(file[0], message)
@@ -87,7 +89,7 @@ def mostrar_info(app, message):
     caption += f"\n\n**🔥 [DOWNLOAD VIDEO](https://t.me/c/{1515779942}/{video.id}) 🔥**"
     
     sms.edit_text('**Sending images...**')
-    media = app.send_media_group(-1001737310030, list_img)
+    media = app.send_media_group(-1002316696001, list_img)
     media[-1].edit_caption(caption)
     
     sms.delete()
