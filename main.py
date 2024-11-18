@@ -1,4 +1,4 @@
-
+import re
 import random
 import os
 import logging
@@ -10,7 +10,9 @@ from moviepy.editor import VideoFileClip
 from PIL import Image
 from pyrogram import filters, Client, types
 from scrappy import Porn
-
+from aiohttp import ClientSession
+from asyncio import sleep as asyncsleep
+from pyrogram.methods.utilities.idle import idle
 
 logging.basicConfig(level=logging.INFO)
 
