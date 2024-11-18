@@ -10,7 +10,7 @@ Flask<= 3.0.0
 gunicorn==19.6.0
 
 #new
-aiohttp
+# aiohttp
 Pyrogram==2.0.93
 TgCrypto
 requests
