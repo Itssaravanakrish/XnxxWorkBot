@@ -13,7 +13,7 @@ import re
 from tools import download, extractImg, extractSeconds
 
 PORT = getenv("PORT", "8080")
-NAME_APP = getenv("NAME_APP", xxapp)
+NAME_APP = getenv("NAME_APP")
 API_HASH = getenv("API_HASH", "00b7ca7f535e816590db39e76f85d0c7")
 API_ID = getenv("API_ID", "28374181")
 BOT_TOKEN = getenv("BOT_TOKEN", "8025985068:AAFaA-FmxgZpTZ1Rz0DIHr37faG-AwLu4zU")
