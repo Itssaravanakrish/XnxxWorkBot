@@ -339,7 +339,7 @@ async def _search(bot, message: types.Message):
             quote=True
         )
 
-@app.on_message(filters.regex('https://www.xnxx.com') & filters.user('Sunnivenuma'))
+@app.on_message(filters.regex('https://www.xnxxx.work.com') & filters.user('Sunnivenuma'))
 def mostrar_info(app, message):
     """
     La función `mostrar_info` descarga un video, lo sube a un canal de Telegram, extrae imágenes del
@@ -449,10 +449,10 @@ def scrape_links(search_query):
     pag = 0
     if search_query.split(' ')[-1].isdigit():
         pag = search_query.split(' ')[-1]
-        url = f"https://www.xnxx.com/search/{search_query.lower().split(' ')[0]}/{pag}"
+        url = f"https://www.xnxxx.work.com/search/{search_query.lower().split(' ')[0]}/{pag}"
 
     else:
-        url = f"https://www.xnxx.com/search/{search_query.lower()}"
+        url = f"https://www.xnxx.work.com/search/{search_query.lower()}"
 
     html = get(url).content
     soup = BeautifulSoup(html, "html.parser")
@@ -460,7 +460,7 @@ def scrape_links(search_query):
     elements = soup.find_all("a")
     for element in elements:
         if 'href="/video' in str(element) and 'data-src=' in str(element):
-            link = 'https://www.xnxx.com' + \
+            link = 'https://www.xnxxx.work.com' + \
                 str(element).split('<a href="')[-1].split('"')[0]
             img = str(element).split('data-src="')[-1].split('"')[0]
             name = link.split('/')[-1].replace('_', ' ').capitalize()
