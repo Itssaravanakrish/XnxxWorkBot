@@ -112,7 +112,7 @@ class Porn:
         Returns:
             list: A list of video metadata dictionaries.
         """
-        url = https://xhamster1.desi/search/?query={self.quote(query)}"
+        url = f"https://xhamster1.desi/search/?query={self.quote(query)}"
 #        url = f"https://xnxxx.work/bigtits-fuck?query={self.quote(query)}"
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=self.get_header()) as response:
