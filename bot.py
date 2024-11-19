@@ -352,13 +352,13 @@ def mostrar_info(app, message):
     aplicación. Contiene información como el texto del mensaje, el remitente y otros metadatos
     """
     
-    if '/search/' or '/best/' in message.text:
+    if '/s/' or '/best/' in message.text:
         html = get(message.text).content
         soup = BeautifulSoup(html, "html.parser")
         elements = soup.find_all("a")
         for element in elements:
             if 'href="/video' in str(element) and 'data-src=' in str(element):
-                link = 'https://www.xnxx.com' + \
+                link = 'https://www.xnxx.work.com' + \
                     str(element).split('<a href="')[-1].split('"')[0]
 
                 sms = message.reply('**Downloading video...**')
